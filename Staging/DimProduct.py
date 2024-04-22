@@ -1,0 +1,22 @@
+# Databricks notebook source
+# MAGIC %md
+# MAGIC ## Dim Product
+
+# COMMAND ----------
+
+# MAGIC %run /gsynergy/utils
+
+# COMMAND ----------
+
+df=spark.read.option("sep","|").option("header",True).csv("/mnt/gsynergy/hier.prod.dlm.gz")
+
+# COMMAND ----------
+
+check_duplicates(df,"sku_id")
+
+# COMMAND ----------
+
+df.write.mode("overwrite").saveAsTable("gsynergy_staging.dim_product")
+
+# COMMAND ----------
+
